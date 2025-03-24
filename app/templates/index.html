@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Summary AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-body">
+    <div class="main-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card p-3 p-md-4 mb-4">
+                        <h1 class="text-center mb-4 display-5 fw-bold">
+                            <i class="fab fa-youtube text-danger me-2"></i>YouTube AI Summary
+                        </h1>
+
+                        <!-- Error Alert -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <!-- Main Form -->
+                        <form id="summaryForm" method="POST">
+                            <div class="input-group input-group-lg mb-3">
+                                <input type="url"
+                                       class="form-control form-control-lg"
+                                       placeholder="Paste YouTube URL here..."
+                                       required
+                                       name="url">
+                                <button class="btn btn-primary" type="submit">
+                                    <span class="d-inline d-md-none">Go</span>
+                                    <span class="d-none d-md-inline">Generate Summary</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Summary Card -->
+                        <div class="card mt-4 {% if summary %}d-block{% else %}d-none{% endif %}" id="summaryCard">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-file-alt me-2"></i>Summary
+                                    </h5>
+                                </div>
+                                <div class="summary-content" id="summaryContent">
+                                    {{ summary|default('', true)|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="btn btn-primary theme-toggle rounded-circle shadow-lg" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun d-none"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('themeToggle');
+        const storedTheme = localStorage.getItem('theme') ||
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        document.documentElement.setAttribute('data-bs-theme', storedTheme);
+        updateThemeIcon(storedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            document.querySelector('#themeToggle .fa-moon').classList.toggle('d-none', theme === 'dark');
+            document.querySelector('#themeToggle .fa-sun').classList.toggle('d-none', theme !== 'dark');
+        }
+
+        // Form Submission Handling
+        document.getElementById('summaryForm').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Processing...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>
