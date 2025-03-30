@@ -3,7 +3,7 @@ import os
 import tiktoken
 
 class SummarizerService:
-    MAX_TOKENS = 4096  # GPT-3.5-turbo context window
+    MAX_TOKENS = 16384
     DEFAULT_PROMPT = """Act as a professional content summarizer with expertise in distilling key information from videos. Summarize the YouTube video transcript provided below. Follow these guidelines:
 
 Objective:
