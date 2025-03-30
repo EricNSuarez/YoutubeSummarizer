@@ -51,7 +51,7 @@ Note: If the transcript is unclear or incomplete, state what information is miss
             raise RuntimeError("OPENAI_API_KEY environment variable not set")
 
         self.client = OpenAI(api_key=api_key)
-        self.model = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
+        self.model = os.getenv("OPENAI_MODEL", "o3-mini")
         self.encoder = tiktoken.encoding_for_model(self.model)
 
     def _count_tokens(self, text: str) -> int:
@@ -91,8 +91,7 @@ Note: If the transcript is unclear or incomplete, state what information is miss
                     {"role": "system", "content": self.DEFAULT_PROMPT},
                     {"role": "user", "content": text}
                 ],
-                temperature=0.3,
-                max_tokens=500
+                max_completion_tokens=1500
             )
 
             if not response.choices or not response.choices[0].message.content:
