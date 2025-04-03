@@ -44,6 +44,11 @@ Provide the summary in the following format:
 [Final takeaways]
 
 Note: If the transcript is unclear or incomplete, state what information is missing."""
+    LANGUAGE_PROMPTS = {
+        "en": "Provide the summary in English.",
+        "es": "Proporcione el resumen en Español.",
+        "pt": "Forneça o resumo em Português.",
+    }
 
     def __init__(self):
         api_key = os.getenv("OPENAI_API_KEY")
@@ -58,13 +63,16 @@ Note: If the transcript is unclear or incomplete, state what information is miss
         """Count tokens using the model's encoder"""
         return len(self.encoder.encode(text))
 
-    def summarize(self, text: str) -> str:
+    def summarize(self, text: str, language: str = "en") -> str:
         """
         Generates a summary using OpenAI with robust error handling
         """
         # Input validation
         if not text.strip():
             raise ValueError("Input text cannot be empty")
+
+        if language not in self.LANGUAGE_PROMPTS:
+            raise ValueError(f"Unsupported language: {language}")
 
         input_tokens = self._count_tokens(text)
         if input_tokens > self.MAX_TOKENS:
@@ -74,7 +82,7 @@ Note: If the transcript is unclear or incomplete, state what information is miss
             )
 
         try:
-            return self._call_openai_api(text)
+            return self._call_openai_api(text, language)
         except APIStatusError as e:
             return self._handle_api_status_error(e)
         except (APIConnectionError, APIResponseValidationError) as e:
@@ -82,13 +90,15 @@ Note: If the transcript is unclear or incomplete, state what information is miss
         except Exception as e:
             raise RuntimeError(f"Unexpected error: {str(e)}") from e
 
-    def _call_openai_api(self, text: str) -> str:
+    def _call_openai_api(self, text: str, language: str) -> str:
         """Execute the OpenAI API call with proper error handling"""
         try:
+            system_prompt = f"{self.DEFAULT_PROMPT}\n{self.LANGUAGE_PROMPTS[language]}"
+
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": self.DEFAULT_PROMPT},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": text}
                 ],
                 max_completion_tokens=1500
