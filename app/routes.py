@@ -26,7 +26,7 @@ def home():
             summary = SummarizerService().summarize(transcript, language=request.form.get("language", "en"))
             print("Summary generated:", bool(summary))
 
-            return render_template("index.html", summary=summary)
+            return render_template("index.html", summary="\n" + summary)
 
         except Exception as e:
             print("Error:", str(e))

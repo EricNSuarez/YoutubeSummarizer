@@ -29,21 +29,18 @@ Additional Instructions:
     Note any biases or unsupported claims in the video (if applicable).
     If the video is technical, adjust terminology for a general audience.
 
-Provide the summary in the following format:
-[Overview]
+Provide the summary in the following MARKDOWN format:
+## Overview
 [Concise summary]
 
-[Key Points]
+### Key Points
+- [Point 1]
+- [Point 2]
 
-    [Point 1]
-    
-    [Point 2]
-    ...
-
-[Conclusion]
+## Conclusion
 [Final takeaways]
 
-Note: If the transcript is unclear or incomplete, state what information is missing."""
+Note: Use proper markdown formatting with headers and lists."""
     LANGUAGE_PROMPTS = {
         "en": "Provide the summary in English.",
         "es": "Proporcione el resumen en Español.",
