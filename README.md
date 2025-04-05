@@ -62,6 +62,7 @@ I would rather prioritize putting effort on other projects over thinking of work
 git clone https://github.com/EricNSuarez/YoutubeSummarizer
 cd YoutubeSummarizer
 docker-compose up --build
+```
 
 ## Acknowledgements
 
