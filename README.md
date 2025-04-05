@@ -39,6 +39,30 @@ A web application that generates concise summaries of YouTube videos using OpenA
 | `OPENAI_MODEL`   | No       | gpt-3.5-turbo    | GPT model version                    |
 | `MAX_TOKENS`     | No       | 150              | Max tokens for summary               |
 
+
+## YouTube Video Summarizer (Local Development Only)
+
+⚠️ **Important Notice**  
+This project now focuses exclusively on local development due to YouTube API restrictions.  
+I've encountered IP blocking issues when deploying to cloud servers. Feel free to use this locally!
+
+### Why Local Only?
+
+YouTube actively blocks transcript requests from:
+
+- Cloud provider IPs (AWS, DigitalOcean, etc.)
+- High-volume IP addresses
+
+I would rather prioritize putting effort on other projects over thinking of workarounds that violate YouTube's ToS.
+
+**Technical Note:** While the project could be modified to use YouTube's official API for transcript retrieval, this alternative approach would only work for videos with manually added captions and wouldn't support auto-generated transcripts. I've chosen to maintain the current implementation for its simplicity and broader compatibility with most YouTube content.
+
+## Quick Local Start
+```bash
+git clone https://github.com/yourusername/youtube-summarizer.git
+cd youtube-summarizer
+docker-compose up --build
+
 ## Acknowledgements
 
 - [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api)
