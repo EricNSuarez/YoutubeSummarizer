@@ -6,15 +6,15 @@ A web application that generates concise summaries of YouTube videos using OpenA
 
 - **YouTube URL Processing**: Supports standard and shortened URLs
 - **Transcript Extraction**: Fetches video subtitles via YouTube Transcript API
-- **AI-Powered Summaries**: Generates bullet-point summaries using OpenAI GPT-3.5-turbo/GPT-4
+- **AI-Powered Summaries**: Generates bullet-point summaries using OpenAI 3o-mini
 - **Error Handling**: Gracefully manages invalid URLs and missing transcripts
 
 ## Installation
 
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/yourusername/youtube-summarizer.git
-   cd youtube-summarizer
+   git clone https://github.com/EricNSuarez/YoutubeSummarizer
+   cd YoutubeSummarizer
    ```
 
 2. **Install Dependencies**:
@@ -59,8 +59,8 @@ I would rather prioritize putting effort on other projects over thinking of work
 
 ## Quick Local Start
 ```bash
-git clone https://github.com/yourusername/youtube-summarizer.git
-cd youtube-summarizer
+git clone https://github.com/EricNSuarez/YoutubeSummarizer
+cd YoutubeSummarizer
 docker-compose up --build
 
 ## Acknowledgements
