@@ -64,6 +64,12 @@ cd YoutubeSummarizer
 docker-compose up --build
 ```
 
+## Demo
+
+![Demo](../assets/demo.gif?raw=true)
+
+*Demo showing the full workflow: URL input → summary generation → formatted output*
+
 ## Acknowledgements
 
 - [YouTube Transcript API](https://github.com/jdepoix/youtube-transcript-api)
