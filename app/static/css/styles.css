@@ -14,17 +14,15 @@
     transition: all 0.3s ease;
 }
 
-/* Theme toggle positioning */
-.theme-toggle {
+/* Buttons container positioning */
+.buttons-container {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 1000;
-    width: 3rem;
-    height: 3rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    gap: 0.5rem;
 }
 
 /* Summary Content Styling */
