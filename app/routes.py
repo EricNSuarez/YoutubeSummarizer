@@ -23,7 +23,7 @@ def home():
 
             transcript = TranscriptService.get_transcript(video_id)
             print("Transcript length:", len(transcript))
-            summary = SummarizerService().summarize(transcript, language=request.form.get("language", "en"))
+            summary = SummarizerService().summarize(transcript, language=request.form.get("language", "en"), length_mode=request.form.get("length_mode", "medium"))
             print("Summary generated:", bool(summary))
 
             return render_template("index.html", summary="\n" + summary)

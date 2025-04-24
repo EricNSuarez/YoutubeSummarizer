@@ -12,19 +12,16 @@ Objective:
     Prioritize accuracy and avoid introducing external knowledge.
 
 Structure:
-
-    Overview: Start with a 1-2 sentence summary of the video’s primary topic and purpose.
-    Key Points: Extract 3-5 critical ideas, examples, or steps. Use bullet points for clarity.
+    Overview: Start with a summary of the video’s primary topic and purpose.
+    Key Points: Extract critical ideas, examples, or steps. Use bullet points for clarity.
     Conclusion: Highlight the final takeaways, recommendations, or calls-to-action.
 
 Tone & Style:
-
-    Keep the summary concise (aim for [X] words/paragraphs) and neutral.
+    Keep the summary concise and neutral, adjusting detail based on the chosen mode: "{length_mode}".
     Use simple, accessible language (avoid jargon unless necessary).
     Paraphrase effectively to avoid redundancy.
 
 Additional Instructions:
-
     Ignore ads, sponsor segments, or non-essential tangents.
     Note any biases or unsupported claims in the video (if applicable).
     If the video is technical, adjust terminology for a general audience.
@@ -47,6 +44,13 @@ Note: Use proper markdown formatting with headers and lists."""
         "pt": "Forneça o resumo em Português.",
     }
 
+    LENGTH_MODES = {
+        "brief": "1-sentence overview, 2–3 bullet points, 1-sentence conclusion",
+        "standard": "1–2 sentence overview, 3–5 bullet points, 1–2 sentence conclusion",
+        "expanded": "2–3 sentence overview, 5–7 detailed bullet points, 2–3 sentence conclusion",
+        "deep-dive": "full-paragraph overview, 7–10 bullets with sub-points if needed, detailed concluding paragraph"
+    }
+
     def __init__(self):
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
@@ -60,7 +64,7 @@ Note: Use proper markdown formatting with headers and lists."""
         """Count tokens using the model's encoder"""
         return len(self.encoder.encode(text))
 
-    def summarize(self, text: str, language: str = "en") -> str:
+    def summarize(self, text: str, language: str = "en", length_mode: str = "standard") -> str | None:
         """
         Generates a summary using OpenAI with robust error handling
         """
@@ -71,6 +75,9 @@ Note: Use proper markdown formatting with headers and lists."""
         if language not in self.LANGUAGE_PROMPTS:
             raise ValueError(f"Unsupported language: {language}")
 
+        if length_mode not in self.LENGTH_MODES:
+            raise ValueError(f"Unsupported length mode: {length_mode}")
+
         input_tokens = self._count_tokens(text)
         if input_tokens > self.MAX_TOKENS:
             raise ValueError(
@@ -79,7 +86,7 @@ Note: Use proper markdown formatting with headers and lists."""
             )
 
         try:
-            return self._call_openai_api(text, language)
+            return self._call_openai_api(text, language, length_mode)
         except APIStatusError as e:
             return self._handle_api_status_error(e)
         except (APIConnectionError, APIResponseValidationError) as e:
@@ -87,10 +94,11 @@ Note: Use proper markdown formatting with headers and lists."""
         except Exception as e:
             raise RuntimeError(f"Unexpected error: {str(e)}") from e
 
-    def _call_openai_api(self, text: str, language: str) -> str:
+    def _call_openai_api(self, text: str, language: str, length_mode: str) -> str:
         """Execute the OpenAI API call with proper error handling"""
         try:
-            system_prompt = f"{self.DEFAULT_PROMPT}\n{self.LANGUAGE_PROMPTS[language]}"
+            length_mode = self.LENGTH_MODES[length_mode]
+            system_prompt = f"{self.DEFAULT_PROMPT.format(length_mode=length_mode)}\n{self.LANGUAGE_PROMPTS[language]}"
 
             response = self.client.chat.completions.create(
                 model=self.model,
@@ -102,12 +110,12 @@ Note: Use proper markdown formatting with headers and lists."""
             )
 
             if not response.choices or not response.choices[0].message.content:
-                raise APIError("Empty response from OpenAI API")
+                raise APIError("Empty response from OpenAI API", body=None)
 
             return response.choices[0].message.content
 
         except APIError as e:
-            raise
+            raise e
 
     @staticmethod
     def _handle_api_status_error(error: APIStatusError) -> None:
