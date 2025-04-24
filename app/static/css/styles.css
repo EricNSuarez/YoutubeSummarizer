@@ -1,3 +1,159 @@
+/* Define Custom CSS Variables for the Terracotta Palette */
+:root {
+    --terracotta-50: #fef8f6;    /* Very Light Terracotta */
+    --terracotta-100: #fdeee6;   /* Light Terracotta */
+    --terracotta-200: #fbcabd;   /* Lighter Terracotta */
+    --terracotta-300: #f9a894;   /* Light Terracotta */
+    --terracotta-400: #f2816b;   /* Terracotta */
+    --terracotta-500: #cb6d51;   /* Base Terracotta */
+    --terracotta-600: #a85c44;   /* Dark Terracotta */
+    --terracotta-700: #854b37;   /* Darker Terracotta */
+    --terracotta-800: #633b2b;   /* Very Dark Terracotta */
+    --terracotta-900: #422a1f;   /* Deep Terracotta */
+    --terracotta-950: #23160f;   /* Very Deep Terracotta */
+
+    /* Neutral Palette */
+    --neutral-white: #ffffff;
+    --neutral-gray-100: #f8f9fa;
+    --neutral-gray-200: #e9ecef;
+    --neutral-gray-300: #dee2e6;
+    --neutral-gray-400: #ced4da;
+    --neutral-gray-500: #adb5bd;
+    --neutral-gray-600: #6c757d;
+    --neutral-gray-700: #495057;
+    --neutral-gray-800: #343a40;
+    --neutral-gray-900: #212529;
+    --neutral-black: #000000;
+
+    /* Assign Base Bootstrap Color Variables */
+    --bs-body-color-rgb: 52, 58, 64;
+    --bs-body-bg: var(--neutral-gray-100);
+    --bs-body-color: var(--neutral-gray-800);
+    --bs-primary: var(--terracotta-600); /* Use a slightly darker terracotta for primary actions */
+    --bs-primary-rgb: 168, 92, 68;
+    --bs-secondary: var(--neutral-gray-600);
+    --bs-secondary-rgb: 108, 117, 125;
+    --bs-primary-light: var(--terracotta-400);
+    --bs-primary-dark: var(--terracotta-700);
+    --bs-box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+    --bs-danger: #dc3545;
+    --bs-light: var(--neutral-gray-100);
+    --bs-dark: var(--neutral-gray-900);
+    --bs-border-color: var(--neutral-gray-300);
+
+    /* Adjust Card Background and Text */
+    --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), .03);
+    --bs-card-bg: var(--neutral-white);
+
+    /* Form Control Focus Ring */
+    --bs-focus-ring-color: rgba(var(--bs-primary-rgb), .25);
+}
+
+/* Dark Theme Overrides */
+[data-bs-theme="dark"] {
+    --bs-body-bg: var(--neutral-gray-900);
+    --bs-body-color: var(--neutral-gray-200);
+    --bs-primary: var(--terracotta-400); /* Use a slightly lighter terracotta for primary actions in dark mode */
+    --bs-primary-rgb: 242, 129, 107;
+    --bs-secondary: var(--neutral-gray-400);
+    --bs-secondary-rgb: 206, 212, 218;
+    --bs-light: var(--neutral-gray-900); /* In dark mode, 'light' should be dark */
+    --bs-dark: var(--neutral-gray-100);  /* In dark mode, 'dark' should be light */
+    --bs-border-color: var(--neutral-gray-700);
+
+    /* Adjust Card Background and Text for Dark Mode */
+    --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), .08);
+    --bs-card-bg: var(--neutral-gray-800);
+
+    /* Form Control Focus Ring */
+    --bs-focus-ring-color: rgba(var(--bs-primary-rgb), .35);
+}
+
+/* Summary-content*/
+.summary-content {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    line-height: 1.7;
+    color: var(--bs-body-color); /* Use the general body color */
+}
+
+.summary-content h2 {
+    color: var(--bs-primary-dark);
+    font-weight: 600;
+    margin: 2rem 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.5);
+    font-size: 1.5rem;
+}
+
+[data-bs-theme="dark"] .summary-content h2 {
+    color: var(--bs-primary-light); /* Define a variable for light mode header color */
+    border-bottom: 2px solid rgba(var(--bs-primary-rgb), 0.3);
+}
+
+
+.summary-content h3 {
+    color: var(--bs-primary); /* Use the primary color for subheadings */
+    font-weight: 500;
+    margin: 1.5rem 0 1rem;
+    font-size: 1.3rem;
+    opacity: 0.9;
+}
+
+[data-bs-theme="dark"] .summary-content h3 {
+    color: var(--bs-primary-light); /* Use a lighter primary for dark mode */
+}
+
+
+.summary-content ul {
+    list-style-type: none;
+    margin-bottom: 1.5rem;
+    background: rgba(var(--bs-primary-rgb), 0.1); /* Use primary color with opacity */
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+}
+
+[data-bs-theme="dark"] .summary-content ul {
+    background: rgba(var(--bs-primary-rgb), 0.15); /* Slightly more opacity in dark mode */
+}
+
+
+.summary-content li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.summary-content li:before {
+    content: "•";
+    color: var(--bs-primary);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1;
+    opacity: 0.8;
+}
+
+[data-bs-theme="dark"] .summary-content li:before {
+    color: var(--bs-primary-light); /* Lighter primary for dark mode */
+    opacity: 0.9;
+}
+
+
+.summary-content p {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(var(--bs-primary-rgb), 0.08); /* Use primary color with opacity */
+    border-radius: 6px;
+    border-left: 3px solid var(--bs-primary); /* Use primary color for border */
+}
+
+[data-bs-theme="dark"] .summary-content p {
+    background: rgba(var(--bs-primary-rgb), 0.2); /* More opacity in dark mode */
+    border-left: 3px solid var(--bs-primary-light); /* Lighter primary for dark mode border */
+}
+
 /* Main container layout */
 .main-container {
     min-height: 100vh;
@@ -10,7 +166,6 @@
 /* Card styling */
 .card {
     border: none;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
@@ -25,83 +180,62 @@
     gap: 0.5rem;
 }
 
-/* Summary Content Styling */
-.summary-content {
-    --summary-heading-color: var(--bs-heading-color);
-    --summary-accent: var(--bs-primary);
-    --summary-border-opacity: 0.15;
+/* YouTube icon in the heading */
+h1 .fab.fa-youtube {
+    color: var(--bs-danger);
+}
 
-    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-    line-height: 1.7;
+/* Form elements */
+.form-select {
+    border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .form-select {
+    background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
+    border-color: var(--bs-border-color);
 }
 
-.summary-content h2 {
-    color: var(--summary-heading-color);
-    font-weight: 600;
-    margin: 2rem 0 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(var(--bs-primary-rgb), var(--summary-border-opacity));
-    font-size: 1.5rem;
+/* Style the submit button using primary color */
+.btn-primary {
+    --bs-btn-color: var(--neutral-white);
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-color: var(--neutral-white);
+    --bs-btn-hover-bg: var(--terracotta-700); /* Slightly darker on hover */
+    --bs-btn-hover-border-color: var(--terracotta-700);
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+    --bs-btn-active-color: var(--neutral-white);
+    --bs-btn-active-bg: var(--terracotta-800); /* Even darker when active */
+    --bs-btn-active-border-color: var(--terracotta-800);
+    --bs-btn-disabled-color: var(--neutral-white);
+    --bs-btn-disabled-bg: var(--terracotta-300); /* Lighter when disabled */
+    --bs-btn-disabled-border-color: var(--terracotta-300);
 }
 
-.summary-content h3 {
-    color: var(--summary-heading-color);
-    font-weight: 500;
-    margin: 1.5rem 0 1rem;
-    font-size: 1.3rem;
-    opacity: 0.9;
+[data-bs-theme="dark"] .btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--terracotta-300); /* Slightly lighter for dark mode hover */
+    --bs-btn-hover-border-color: var(--terracotta-300);
+    --bs-btn-active-bg: var(--terracotta-200); /* Even lighter for dark mode active */
+    --bs-btn-active-border-color: var(--terracotta-200);
+    --bs-btn-disabled-bg: var(--terracotta-600); /* Darker when disabled in dark mode */
+    --bs-btn-disabled-border-color: var(--terracotta-600);
 }
 
-.summary-content ul {
-    list-style-type: none;
-    padding-left: 1.25rem;
-    margin-bottom: 1.5rem;
-    background: rgba(var(--bs-secondary-bg-rgb), 0.1);
-    border-radius: 6px;
-    padding: 1rem 1.5rem;
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%); /* Make it visible on dark backgrounds */
 }
 
-.summary-content li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
+[data-bs-theme="dark"] .btn-close {
+    filter: none; /* Revert filter in dark mode */
+    color: var(--bs-body-color); /* Use body color for close button in dark mode */
 }
 
-.summary-content li:before {
-    content: "•";
-    color: var(--summary-accent);
-    position: absolute;
-    left: 0;
-    font-weight: 700;
-    font-size: 1.2em;
-    line-height: 1;
-    opacity: 0.8;
-}
-
-.summary-content p {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: rgba(var(--bs-tertiary-bg-rgb), 0.2);
-    border-radius: 6px;
-    border-left: 3px solid var(--summary-accent);
-}
-
-/* Dark mode overrides */
-[data-bs-theme="dark"] .summary-content {
-    --summary-border-opacity: 0.3;
-}
-
-[data-bs-theme="dark"] .summary-content li:before {
-    opacity: 0.9;
-}
-
-[data-bs-theme="dark"] .summary-content ul {
-    background: rgba(var(--bs-secondary-bg-rgb), 0.15);
-}
-
-/* Form control focus state */
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+/* Style the flash messages */
+.alert-danger {
+    --bs-alert-color: var(--neutral-white);
+    --bs-alert-bg: var(--bs-danger);
+    --bs-alert-border-color: var(--bs-danger);
 }
