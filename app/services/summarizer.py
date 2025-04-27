@@ -57,7 +57,7 @@ Note: Use proper markdown formatting with headers and lists."""
             raise RuntimeError("OPENAI_API_KEY environment variable not set")
 
         self.client = OpenAI(api_key=api_key)
-        self.model = os.getenv("OPENAI_MODEL", "o3-mini")
+        self.model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         self.encoder = tiktoken.encoding_for_model(self.model)
 
     def _count_tokens(self, text: str) -> int:
