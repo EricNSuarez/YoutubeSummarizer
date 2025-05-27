@@ -80,6 +80,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Transcript Section -->
+            <div class="card mt-4 {% if transcript %}d-block{% else %}d-none{% endif %}" id="transcriptCard">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-align-left me-2"></i>Transcript
+                    </h5>
+                    <div>
+                        <!-- Copy Transcript Button -->
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="copyTranscript">
+                            <i class="fas fa-copy me-1"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Transcript content -->
+                    <div id="transcriptContent" style="white-space: pre-wrap;">{{ transcript|default('', true) }}</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -87,6 +107,11 @@
         <!-- Clipboard Button -->
         <button type="button" class="btn btn-primary rounded-circle shadow-lg" id="copyToClipboard">
             <i class="fa-solid fa-copy"></i>
+        </button>
+
+        <!-- Transcript Toggle Button -->
+        <button type="button" class="btn btn-primary rounded-circle shadow-lg" id="toggleTranscript">
+            <i class="fas fa-align-left"></i>
         </button>
 
         <!-- Theme Toggle -->
@@ -120,13 +145,29 @@
             document.querySelector('#themeToggle .fa-sun').classList.toggle('d-none', theme !== 'dark');
         }
 
-        // Copy to clipboard
+        // Copy summary to clipboard
         const copyButton = document.getElementById('copyToClipboard');
 
         copyButton.addEventListener('click', () => {
             const originalContent = document.getElementById('summaryContent').dataset.originalContent;
             navigator.clipboard.writeText(originalContent);
         });
+
+        // Display/hide transcript section
+        const transcriptButton = document.getElementById('toggleTranscript');
+
+        transcriptButton.addEventListener('click', () => {
+            const transcriptCard = document.getElementById('transcriptCard');
+            transcriptCard.classList.toggle('d-none');
+        })
+
+        // Copy transcript to clipboard
+        const copyTranscriptButton = document.getElementById('copyTranscript');
+        copyTranscriptButton.addEventListener('click', () => {
+            const transcriptContent = document.getElementById('transcriptContent').textContent;
+            navigator.clipboard.writeText(transcriptContent);
+        })
+
 
         // Form Submission Handling
         document.getElementById('summaryForm').addEventListener('submit', function() {
