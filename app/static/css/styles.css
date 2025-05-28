@@ -239,3 +239,22 @@ h1 .fab.fa-youtube {
     --bs-alert-bg: var(--bs-danger);
     --bs-alert-border-color: var(--bs-danger);
 }
+
+/* Transcript overlay */
+.transcript-overlay {
+    position: fixed;
+    top: 5%;
+    left: 10%;
+    width: 80%;
+    height: 90%;
+    z-index: 999;
+    overflow-y: auto;
+    box-shadow: var(--bs-box-shadow);
+    animation: slideInBounce 0.4s ease-out forwards;
+}
+
+@keyframes slideInBounce {
+  0% { transform: translateX(100%); opacity: 0; }
+  80% { transform: translateX(-10px); }
+  100% { transform: translateX(0); opacity: 1; }
+}
